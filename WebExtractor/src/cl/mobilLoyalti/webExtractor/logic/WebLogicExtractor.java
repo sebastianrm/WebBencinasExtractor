@@ -5,17 +5,16 @@ import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Bencinas;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Region;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.ServiCentro;
+import cl.mobilLoyalti.webExtractor.utils.Utiles;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
@@ -40,49 +39,6 @@ public class WebLogicExtractor extends Thread {
 
 	private static Logger log = Logger.getLogger(WebLogicExtractor.class);
 
-	protected static HashMap<Integer, String> bencinas = new HashMap<Integer, String>() {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = -5503416114647714917L;
-
-		{
-			put(1, "Gasolina 93");
-			put(2, "Gasolina 97");
-			put(3, "Petroleo Diesel");
-			put(4, "Kerosene");
-			put(5, "GNC");
-			put(6, "GLP Vehicular");
-			put(7, "Gasolina 95");
-
-		}
-	};
-
-	protected static HashMap<Integer, String> regiones = new HashMap<Integer, String>() {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = -5503416114647714917L;
-
-		{
-			put(1, "Arica y Parinacota");
-			put(2, "Tarapacá");
-			put(3, "Antofagasta");
-			put(4, "Atacama");
-			put(5, "Coquimbo");
-			put(6, "Valparaíso");
-			put(7, "Metropolitana");
-			put(8, "Gral. Bernardo O'Higgins");
-			put(9, "Maule");
-			put(10, "Bío Bío");
-			put(11, "Aracucanía");
-			put(12, "Los Ríos");
-			put(13, "Los Lagos");
-			put(14, "Aysén Gral. C. Ibáñez del Campo");
-			put(15, "Magallanes y la Antártida Chilena");
-		}
-	};
-
 	private Integer indiceBencina;
 	private Integer idRegion;
 
@@ -91,7 +47,6 @@ public class WebLogicExtractor extends Thread {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		super.run();
 
 		final WebClient webClient = new WebClient();
@@ -111,7 +66,7 @@ public class WebLogicExtractor extends Thread {
 			page.getWebClient().setCssEnabled(false);
 
 			region = new Region();
-			region.setNombre(regiones.get(idRegion));
+			region.setNombre(Utiles.regiones.get(idRegion));
 
 			region.setServiCentros(new HashSet<ServiCentro>());
 
@@ -226,9 +181,9 @@ public class WebLogicExtractor extends Thread {
 
 				if (tablaTotal != null) {
 
-					log.info("encontro bencineras para: "
-							+ bencinas.get(indiceBencina));
-					System.out.println();
+					log.debug("SI ENCONTRO BENCINERAS PARA: "
+							+ Utiles.bencinas.get(indiceBencina) + " REGION: "
+							+ region.getNombre());
 
 					Iterator<DomNode> iter = tablaTotal.getFirstChild()
 							.getChildren().iterator();
@@ -254,20 +209,17 @@ public class WebLogicExtractor extends Thread {
 								 * creo el servicentro
 								 */
 								ServiCentro serviCentro = new ServiCentro();
-								/**
-								 * TODO OBSERVAR ESTA REFERENCIA
-								 */
-								// serviCentro.setRegion(region);
 
 								/**
 								 * creo la bencina
 								 */
 
 								Bencinas bencina = new Bencinas();
-								bencina.setDescripcion(bencinas
+								bencina.setDescripcion(Utiles.bencinas
 										.get(indiceBencina));
 
-								HashSet<Bencinas> setBencinas = new HashSet<Bencinas>();
+								// HashSet<Bencinas> setBencinas = new
+								// HashSet<Bencinas>();
 
 								while (cellIterator.hasNext()) {
 
@@ -333,8 +285,9 @@ public class WebLogicExtractor extends Thread {
 						}
 					}
 				} else {
-					log.info("NO encontro bencineras para: "
-							+ bencinas.get(indiceBencina));
+					log.warn("NO ENCONTRO BENCINERAS PARA: "
+							+ Utiles.bencinas.get(indiceBencina) + " REGION: "
+							+ region.getNombre());
 				}
 			}
 
@@ -353,13 +306,13 @@ public class WebLogicExtractor extends Thread {
 
 	}
 
-	private void dormir() {
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			log.error(e);
-		}
-	}
+	// private void dormir() {
+	// try {
+	// Thread.sleep(10);
+	// } catch (InterruptedException e) {
+	// log.error(e);
+	// }
+	// }
 
 	public Integer getIdRegion() {
 		return idRegion;

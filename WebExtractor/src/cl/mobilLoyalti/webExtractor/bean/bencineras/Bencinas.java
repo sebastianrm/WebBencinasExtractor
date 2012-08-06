@@ -95,8 +95,10 @@ public class Bencinas implements Comparable<Bencinas>{
 	public String toString() {
 		return "Bencinas [descripcion=" + descripcion + ", precios=" + precios
 				+ ", fechaUlmtimaModificacion=" + fechaUlmtimaModificacion
-				+ ", serviCentro=" + serviCentro + "]";
+				+ ", serviCentro=" + serviCentro.toStringCorto() + "]";
 	}
+
+
 
 	
 	

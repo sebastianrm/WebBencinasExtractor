@@ -4,7 +4,6 @@
 package cl.mobilLoyalti.webExtractor.bean.bencineras;
 
 import java.util.HashSet;
-import java.util.TreeSet;
 
 /**
  * @author Sebastian Retamal
@@ -40,6 +39,10 @@ public class Region implements Comparable<Region>{
 		return "Region [nombre=" + nombre + ", serviCentros=" + serviCentros
 				+ "]";
 	}
+	public String toStringCorto() {
+		return "Region [nombre=" + nombre + "]";
+	}
+
 
 	@Override
 	public int hashCode() {

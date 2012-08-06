@@ -4,7 +4,6 @@
 package cl.mobilLoyalti.webExtractor.bean.bencineras;
 
 import java.util.HashSet;
-import java.util.TreeSet;
 
 /**
  * @author Sebastian Retamal
@@ -75,6 +74,10 @@ public class ServiCentro {
 		return "ServiCentro [empresa=" + empresa + ", direccion=" + direccion
 				+ ", latitud=" + latitud + ", longitud=" + longitud
 				+ ", Bencinas=" + Bencinas + ", region=" + region + "]";
+	}
+	public String toStringCorto() {
+		return "ServiCentro [empresa=" + empresa + ", direccion=" + direccion
+				+ ", latitud=" + latitud + ", longitud=" + longitud + "]";
 	}
 
 	@Override

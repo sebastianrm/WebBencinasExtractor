@@ -29,7 +29,7 @@ public class BencinasDao extends ConnectionDB {
 		} catch (SQLException e) {
 			log.error(e);
 		} finally {
-			closeAll(ps);
+			close(ps);
 			MySQLConnectionDB.getInstance().closeConnection();
 		}
 

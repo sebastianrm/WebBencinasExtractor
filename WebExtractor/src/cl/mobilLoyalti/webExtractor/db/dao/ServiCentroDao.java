@@ -4,12 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Region;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.ServiCentro;
 import cl.mobilLoyalti.webExtractor.db.ConnectionDB;
 import cl.mobilLoyalti.webExtractor.db.MySQLConnectionDB;
 
+/**
+ * 
+ * @author Sebastian Retamal
+ *
+ */
 public class ServiCentroDao extends ConnectionDB{
+	
+	private static Logger log = Logger.getLogger(ServiCentroDao.class);
 	private static final String SQL_INSERT = "INSERT INTO servicentros (empresa,direccion,latitud,longitud,fkregion) values (?,?,?,?,?)";
 
 	public void insert(ServiCentro sc, Region region) {
@@ -26,9 +35,9 @@ public class ServiCentroDao extends ConnectionDB{
 			ps.setString(5, region.getNombre());
 			ps.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 		}finally{
-			closeAll(ps);
+			close(ps);
 			MySQLConnectionDB.getInstance().closeConnection();
 		}
 

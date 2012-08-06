@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Bencinas;
+import cl.mobilLoyalti.webExtractor.bean.bencineras.Region;
+import cl.mobilLoyalti.webExtractor.bean.bencineras.ServiCentro;
 import cl.mobilLoyalti.webExtractor.db.ConnectionDB;
 import cl.mobilLoyalti.webExtractor.db.MySQLConnectionDB;
 
@@ -12,7 +14,7 @@ public class PreciosDao extends ConnectionDB{
 
 	private static final String SQL_INSERT = "INSERT INTO precios (precio,fkbencina,fkempresa,fkdireccion,fkregion,fecha_actualizacion) values (?,?,?,?,?,?)";
 
-	public void insert(Bencinas precios) {
+	public void insert(Bencinas precios,ServiCentro sc, Region region) {
 
 		Connection conn = MySQLConnectionDB.getInstance().createConnection();
 		PreparedStatement ps = null;
@@ -21,9 +23,9 @@ public class PreciosDao extends ConnectionDB{
 
 			ps.setFloat(1, precios.getPrecios());
 			ps.setString(2, precios.getDescripcion());
-			ps.setString(3, precios.getServiCentro().getEmpresa());
-			ps.setString(4, precios.getServiCentro().getDireccion());
-			ps.setString(5, precios.getServiCentro().getRegion().getNombre());
+			ps.setString(3, sc.getEmpresa());
+			ps.setString(4, sc.getDireccion());
+			ps.setString(5, region.getNombre());
 			ps.setTimestamp(6, precios.getFechaUlmtimaModificacion());
 
 			ps.execute();

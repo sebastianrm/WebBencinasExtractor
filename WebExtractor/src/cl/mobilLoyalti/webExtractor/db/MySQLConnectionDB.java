@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
+import cl.mobilLoyalti.webExtractor.db.dao.BencinasDao;
+
 public class MySQLConnectionDB extends ConnectionDB{
 
 	private String user;
@@ -13,15 +17,15 @@ public class MySQLConnectionDB extends ConnectionDB{
 	private String sid;
 	private Connection conn;
 	private static MySQLConnectionDB connectionDB;
-
+	private static Logger log = Logger.getLogger(MySQLConnectionDB.class);
 	/*
 	 * Constructor por defecto.
 	 * Setea inmediatamente los parametros de la base de datos para su utilización.
 	 */	
 	public MySQLConnectionDB(){
 		this.setUser("root");
-		this.setPassword("centos");
-		this.setIp("190.8.125.232");
+		this.setPassword("210377");
+		this.setIp("localhost");
 		this.setPort("3306");
 		this.setSid("bencineras");
 	}
@@ -54,7 +58,7 @@ public class MySQLConnectionDB extends ConnectionDB{
 		try {
 			conn = DriverManager.getConnection(url, getUser(), getPassword());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 		return conn;
 	}

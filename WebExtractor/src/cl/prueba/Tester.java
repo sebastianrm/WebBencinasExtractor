@@ -34,7 +34,7 @@ import com.gargoylesoftware.htmlunit.util.Cookie;
 import com.gargoylesoftware.htmlunit.util.NameValuePair;
 
 /**
- * @author Administrador
+ * @author Sebastian Retamal
  * 
  */
 public class Tester {

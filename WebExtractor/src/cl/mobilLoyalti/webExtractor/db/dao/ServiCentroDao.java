@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import cl.mobilLoyalti.webExtractor.bean.bencineras.Region;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.ServiCentro;
 import cl.mobilLoyalti.webExtractor.db.ConnectionDB;
 import cl.mobilLoyalti.webExtractor.db.MySQLConnectionDB;
@@ -11,7 +12,7 @@ import cl.mobilLoyalti.webExtractor.db.MySQLConnectionDB;
 public class ServiCentroDao extends ConnectionDB{
 	private static final String SQL_INSERT = "INSERT INTO servicentros (empresa,direccion,latitud,longitud,fkregion) values (?,?,?,?,?)";
 
-	public void insert(ServiCentro sc) {
+	public void insert(ServiCentro sc, Region region) {
 
 		Connection conn = MySQLConnectionDB.getInstance().createConnection();
 		PreparedStatement ps = null;
@@ -22,7 +23,7 @@ public class ServiCentroDao extends ConnectionDB{
 			ps.setString(2, sc.getDireccion());
 			ps.setFloat(3, sc.getLatitud());
 			ps.setFloat(4, sc.getLongitud());
-			ps.setString(5, sc.getRegion().getNombre());
+			ps.setString(5, region.getNombre());
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

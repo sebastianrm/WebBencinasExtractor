@@ -6,8 +6,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import cl.mobilLoyalti.webExtractor.db.dao.BencinasDao;
-
 public class MySQLConnectionDB extends ConnectionDB{
 
 	private String user;
@@ -24,7 +22,7 @@ public class MySQLConnectionDB extends ConnectionDB{
 	 */	
 	public MySQLConnectionDB(){
 		this.setUser("root");
-		this.setPassword("210377");
+		this.setPassword("123456");
 		this.setIp("localhost");
 		this.setPort("3306");
 		this.setSid("bencineras");

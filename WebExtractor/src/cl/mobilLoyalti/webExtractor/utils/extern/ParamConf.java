@@ -16,6 +16,9 @@ import org.apache.log4j.Logger;
  */
 public class ParamConf {
 
+	private static final String CONF_CONF_PROPERTIES = "./conf/conf.properties";
+
+
 	public ParamConf() {
 		if (props == null) {
 			props = new Properties();
@@ -23,7 +26,7 @@ public class ParamConf {
 		try {
 
 			FileInputStream fileInputStream = new FileInputStream(
-					"./config/conf.properties");
+					CONF_CONF_PROPERTIES);
 
 			props.load(fileInputStream);
 			fileInputStream.close();
@@ -66,7 +69,7 @@ public class ParamConf {
 		try {
 
 			FileInputStream fileInputStream = new FileInputStream(
-					"./config/conf.properties");
+					CONF_CONF_PROPERTIES);
 
 			props.load(fileInputStream);
 			fileInputStream.close();

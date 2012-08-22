@@ -73,6 +73,8 @@ public class ConnectionDB {
 			ps.close();
 		} catch (SQLException e) {
 			logger.error(e);
+		}catch (NullPointerException e) {
+			logger.error(e);
 		}
 	}
 

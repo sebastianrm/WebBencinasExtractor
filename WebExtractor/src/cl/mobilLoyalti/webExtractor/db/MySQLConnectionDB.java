@@ -42,28 +42,24 @@ public class MySQLConnectionDB extends ConnectionDB {
 	 */
 	public Connection createConnection() {
 		ParamConf paramConf = new ParamConf();
+
 		Connection conn = null;
-
-		// Declare the JDBC objects.
-
 		try {
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			// Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName(paramConf.JDBC_DRIVER);
 		} catch (Exception e) {
 			log.error(e);
 		}
 		// String url = "jdbc:mysql://" + paramConf.DB_CONNECTION_MYSQL_IP + ":"
 		// + paramConf.DB_CONNECTION_MYSQL_PORT + "/" +
 		// paramConf.DB_CONNECTION_MYSQL_SCHEMA;
-		String url = "jdbc:sqlserver://" + paramConf.DB_CONNECTION_MYSQL_IP
-				+ ":" + paramConf.DB_CONNECTION_MYSQL_PORT +";databaseName="
-				+ paramConf.DB_CONNECTION_MYSQL_SCHEMA
-				+ ";";
+
+		String url = "jdbc:sqlserver://" + paramConf.DB_CONNECTION_IP + ":"
+				+ paramConf.DB_CONNECTION_PORT + ";databaseName="
+				+ paramConf.DB_CONNECTION_SCHEMA + ";";
 
 		try {
-			 conn = DriverManager.getConnection(url,
-			 paramConf.DB_CONNECTION_MYSQL_USER,
-			 paramConf.DB_CONNECTION_MYSQL_PASS);
+			conn = DriverManager.getConnection(url,
+					paramConf.DB_CONNECTION_USER, paramConf.DB_CONNECTION_PASS);
 		} catch (SQLException e) {
 			log.error(e);
 		}

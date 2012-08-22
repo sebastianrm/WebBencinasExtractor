@@ -41,11 +41,12 @@ public class ParamConf {
 	public String VERSION = getProps("VERSION");
 	public String FECHA_DEPLOY = getProps("FECHA_DEPLOY");
 
-	public String DB_CONNECTION_MYSQL_IP = getProps("DB_CONNECTION_MYSQL_IP");
-	public String DB_CONNECTION_MYSQL_USER = getProps("DB_CONNECTION_MYSQL_USER");
-	public String DB_CONNECTION_MYSQL_PASS = getProps("DB_CONNECTION_MYSQL_PASS");
-	public String DB_CONNECTION_MYSQL_PORT = getProps("DB_CONNECTION_MYSQL_PORT");
-	public String DB_CONNECTION_MYSQL_SCHEMA = getProps("DB_CONNECTION_MYSQL_SCHEMA");
+	public String JDBC_DRIVER = getProps("JDBC_DRIVER");
+	public String DB_CONNECTION_IP = getProps("DB_CONNECTION_IP");
+	public String DB_CONNECTION_USER = getProps("DB_CONNECTION_USER");
+	public String DB_CONNECTION_PASS = getProps("DB_CONNECTION_PASS");
+	public String DB_CONNECTION_PORT = getProps("DB_CONNECTION_PORT");
+	public String DB_CONNECTION_SCHEMA = getProps("DB_CONNECTION_SCHEMA");
 
 
 	/**

@@ -24,8 +24,8 @@ public class PreciosDao extends ConnectionDB {
 
 	private static Logger log = Logger.getLogger(PreciosDao.class);
 	private static final String SQL_INSERT = "INSERT INTO precios (precio,fkbencina,fkempresa,fkdireccion,fkregion,fecha_actualizacion) values (?,?,?,?,?,?)";
-	private static final String SQL_LOAD_ALL = "SELECT precios.precio, precios.fkbencina, precios.fkempresa, precios.fkdireccion, precios.fkregion, precios.fecha_actualizacion FROM bencineras.precios";
-	private static final String SQL_UPDATE = "UPDATE bencineras.precios SET precio = ? ,fecha_actualizacion = ? WHERE fkbencina = ? and fkempresa = ? and fkdireccion = ? and fkregion = ? and fecha_actualizacion <> ?";
+	private static final String SQL_LOAD_ALL = "SELECT precios.precio, precios.fkbencina, precios.fkempresa, precios.fkdireccion, precios.fkregion, precios.fecha_actualizacion FROM precios";
+	private static final String SQL_UPDATE = "UPDATE precios SET precio = ? ,fecha_actualizacion = ? WHERE fkbencina = ? and fkempresa = ? and fkdireccion = ? and fkregion = ? and fecha_actualizacion <> ?";
 
 	public void insert(Bencinas precios, ServiCentro sc, Region region) {
 

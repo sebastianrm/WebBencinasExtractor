@@ -97,7 +97,7 @@ public class WebLogicExtractor extends Thread {
 			// selectcomuna.setSelectedAttribute(optionComuna, true);
 			// } catch (com.gargoylesoftware.htmlunit.ElementNotFoundException
 			// e) {
-			// e.printStackTrace();
+			// log.error(e);
 			// }
 			//
 			// }

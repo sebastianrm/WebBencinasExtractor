@@ -58,9 +58,9 @@ CREATE TABLE `bencineras`.`precios` (
 
 
 CREATE TABLE `bencineras`.`direcciones_google` (
-  `fkempresa` varchar(60) NOT NULL,
+  `fkempresa` varchar(100) NOT NULL,
   `fkdireccion` varchar(100) NOT NULL,
-  `fkregion` varchar(60) NOT NULL,
+  `fkregion` varchar(100) NOT NULL,
   `dirGooogle` varchar(200) NOT NULL,
   PRIMARY KEY (`fkempresa`,`fkdireccion`,`fkregion`,`dirGooogle`),
   KEY `fk_servicentro` (`fkempresa`,`fkdireccion`,`fkregion`),

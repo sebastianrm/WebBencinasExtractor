@@ -1,1 +1,1 @@
-java -Dlog4j.configuration=file:./conf/log4j_insert.properties -jar webExtractorUpdate.jar
+java -Dlog4j.configuration=file:./conf/log4j_update.properties -jar webExtractorUpdate.jar

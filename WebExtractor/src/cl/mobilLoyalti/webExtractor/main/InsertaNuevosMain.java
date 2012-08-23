@@ -29,7 +29,7 @@ public class InsertaNuevosMain {
 		log.info("INICIO DE PROCESO DE CREACION FECHA HORA:"
 				+ Utiles.fechaHoraActual());
 
-		while (idRegion <= 7) {
+		while (idRegion <= 15) {
 
 			/**
 			 * para evitar el heap memory space

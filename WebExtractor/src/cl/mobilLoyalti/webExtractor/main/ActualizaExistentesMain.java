@@ -28,7 +28,7 @@ public class ActualizaExistentesMain {
 		log.info("INICIO DE PROCESO DE ACTUALIZACION FECHA HORA:"
 				+ Utiles.fechaHoraActual());
 
-		while (idRegion <= 7) {
+		while (idRegion <= 15) {
 
 			/**
 			 * para evitar el heap memory space

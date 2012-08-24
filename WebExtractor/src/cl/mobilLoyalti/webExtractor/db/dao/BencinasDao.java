@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Bencinas;
 import cl.mobilLoyalti.webExtractor.db.ConnectionDB;
-import cl.mobilLoyalti.webExtractor.db.MySQLConnectionDB;
+import cl.mobilLoyalti.webExtractor.db.PoolingDataSource;
 
 public class BencinasDao extends ConnectionDB {
 
@@ -18,7 +18,7 @@ public class BencinasDao extends ConnectionDB {
 
 	public void insert(Bencinas bencinas) {
 
-		Connection conn = MySQLConnectionDB.getInstance().createConnection();
+		Connection conn = PoolingDataSource.getInstance().createConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement(SQL_INSERT);
@@ -29,8 +29,8 @@ public class BencinasDao extends ConnectionDB {
 		} catch (SQLException e) {
 			log.error(e);
 		} finally {
-			close(ps);
-			MySQLConnectionDB.getInstance().closeConnection();
+			close(ps,conn);
+//			MySQLConnectionDB.getInstance().closeConnection();
 		}
 
 	}

@@ -83,7 +83,7 @@ public class LogicUpdateWebExtractorManager extends Thread {
 				sw2 = sw2 && next.isTermino();
 
 				if (next.isTermino()) {
-					if (region.getNombre() == null) {
+					if (region == null || region.getNombre() == null ) {
 						/**
 						 * Es el primero
 						 */

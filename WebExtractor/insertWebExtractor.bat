@@ -1,1 +1,1 @@
-java -Dlog4j.configuration=file:./conf/log4j_insert.properties -jar webExtractorInsert.jar
+java -Xms128M -Xmx256M -XX:PermSize=128M -XX:MaxPermSize=256M -Dlog4j.configuration=file:./conf/log4j_insert.properties -jar webExtractorInsert.jar

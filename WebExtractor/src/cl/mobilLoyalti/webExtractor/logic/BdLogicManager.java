@@ -1,5 +1,6 @@
 package cl.mobilLoyalti.webExtractor.logic;
 
+import java.sql.SQLException;
 import java.util.Iterator;
 
 import org.apache.log4j.Logger;
@@ -7,7 +8,7 @@ import org.apache.log4j.Logger;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Bencinas;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Region;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.ServiCentro;
-import cl.mobilLoyalti.webExtractor.db.MySQLConnectionDB;
+import cl.mobilLoyalti.webExtractor.db.PoolingDataSource;
 import cl.mobilLoyalti.webExtractor.db.dao.BencinasDao;
 import cl.mobilLoyalti.webExtractor.db.dao.PreciosDao;
 import cl.mobilLoyalti.webExtractor.db.dao.RegionDao;
@@ -55,7 +56,7 @@ public class BdLogicManager {
 				}
 
 			}
-			MySQLConnectionDB.getInstance().closeConnection();
+//			PoolingDataSource.getInstance().closeConnection();
 			log.info("FINALIZA INSERT DE INFORMACION REGION: "+region.getNombre()+" FECHA HORA INICIO:"+Utiles.fechaHoraActual());
 		}
 	}
@@ -82,7 +83,13 @@ public class BdLogicManager {
 
 			}
 			log.info("FINALIZA UPDATE DE INFORMACION REGION: "+region.getNombre()+" FECHA HORA INICIO:"+Utiles.fechaHoraActual());
-			MySQLConnectionDB.getInstance().closeConnection();
+//			MySQLConnectionDB.getInstance().closeConnection();
+//			try {
+//				PoolingDataSource.getInstance().getConnection().close();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 	}
 	

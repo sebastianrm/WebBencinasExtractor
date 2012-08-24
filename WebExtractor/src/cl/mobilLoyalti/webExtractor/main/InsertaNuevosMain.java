@@ -22,7 +22,7 @@ public class InsertaNuevosMain {
 
 
 		Logger log = Logger.getLogger(InsertaNuevosMain.class);
-		int idRegion = 1;
+		int idRegion = 6;
 		ArrayList<LogicNewWebExtractorManager> arrayList = new ArrayList<LogicNewWebExtractorManager>();
 		int contadorHilos = 0;
 		log.info("*******************************************************************");

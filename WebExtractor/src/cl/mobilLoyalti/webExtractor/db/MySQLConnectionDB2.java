@@ -8,17 +8,17 @@ import org.apache.log4j.Logger;
 
 import cl.mobilLoyalti.webExtractor.utils.extern.ParamConf;
 
-public class MySQLConnectionDB extends ConnectionDB {
+public class MySQLConnectionDB2 extends ConnectionDB {
 
 	private Connection conn;
-	private static MySQLConnectionDB connectionDB;
-	private static Logger log = Logger.getLogger(MySQLConnectionDB.class);
+	private static MySQLConnectionDB2 connectionDB;
+	private static Logger log = Logger.getLogger(MySQLConnectionDB2.class);
 
 	/*
 	 * Constructor por defecto. Setea inmediatamente los parametros de la base
 	 * de datos para su utilización.
 	 */
-	public MySQLConnectionDB() {
+	public MySQLConnectionDB2() {
 	}
 
 	/*
@@ -83,9 +83,9 @@ public class MySQLConnectionDB extends ConnectionDB {
 		}
 	}
 
-	public static synchronized MySQLConnectionDB getInstance() {
+	public static synchronized MySQLConnectionDB2 getInstance() {
 		if (connectionDB == null) {
-			connectionDB = new MySQLConnectionDB();
+			connectionDB = new MySQLConnectionDB2();
 		}
 		return connectionDB;
 	}

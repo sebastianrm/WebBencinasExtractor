@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Region;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.ServiCentro;
 import cl.mobilLoyalti.webExtractor.db.ConnectionDB;
-import cl.mobilLoyalti.webExtractor.db.MySQLConnectionDB;
+import cl.mobilLoyalti.webExtractor.db.PoolingDataSource;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class ServiCentroDao extends ConnectionDB{
 
 	public void insert(ServiCentro sc, Region region) {
 
-		Connection conn = MySQLConnectionDB.getInstance().createConnection();
+		Connection conn = PoolingDataSource.getInstance().createConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement(SQL_INSERT);
@@ -37,8 +37,8 @@ public class ServiCentroDao extends ConnectionDB{
 		} catch (SQLException e) {
 			log.error(e);
 		}finally{
-			close(ps);
-			MySQLConnectionDB.getInstance().closeConnection();
+			close(ps,conn);
+//			MySQLConnectionDB.getInstance().closeConnection();
 		}
 
 	}

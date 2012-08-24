@@ -70,7 +70,7 @@ public class ActualizaExistentesMain {
 
 			while (iterator.hasNext()) {
 				LogicUpdateWebExtractorManager next = iterator.next();
-
+				next.isAlive();
 				if (next.isTermine()) {
 					// si termino entonces lo guardo en la base
 					iterator.remove();

@@ -12,7 +12,7 @@ import cl.mobilLoyalti.webExtractor.bean.bencineras.Bencinas;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.Region;
 import cl.mobilLoyalti.webExtractor.bean.bencineras.ServiCentro;
 import cl.mobilLoyalti.webExtractor.db.ConnectionDB;
-import cl.mobilLoyalti.webExtractor.db.MySQLConnectionDB;
+import cl.mobilLoyalti.webExtractor.db.PoolingDataSource;
 import cl.mobilLoyalti.webExtractor.db.dto.PreciosDto;
 
 /**
@@ -29,7 +29,7 @@ public class PreciosDao extends ConnectionDB {
 
 	public void insert(Bencinas precios, ServiCentro sc, Region region) {
 
-		Connection conn = MySQLConnectionDB.getInstance().createConnection();
+		Connection conn = PoolingDataSource.getInstance().createConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement(SQL_INSERT);
@@ -45,8 +45,8 @@ public class PreciosDao extends ConnectionDB {
 		} catch (SQLException e) {
 			log.error(e);
 		} finally {
-			close(ps);
-			MySQLConnectionDB.getInstance().closeConnection();
+			close(ps,conn);
+//			MySQLConnectionDB.getInstance().closeConnection();
 		}
 
 	}
@@ -56,7 +56,7 @@ public class PreciosDao extends ConnectionDB {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			conn = MySQLConnectionDB.getInstance().createConnection();
+			conn = PoolingDataSource.getInstance().createConnection();
 			ps = conn.prepareStatement(SQL_LOAD_ALL);
 
 			rs = ps.executeQuery();
@@ -99,7 +99,7 @@ public class PreciosDao extends ConnectionDB {
 		// precio = ? ,fecha_actualizacion = ?
 		// WHERE fkbencina = ? and fkempresa = ? and fkdireccion = ? and
 		// fkregion = ? and fecha_actualizacion <> ?";
-		Connection conn = MySQLConnectionDB.getInstance().createConnection();
+		Connection conn = PoolingDataSource.getInstance().createConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement(SQL_UPDATE);
@@ -113,19 +113,23 @@ public class PreciosDao extends ConnectionDB {
 			ps.setString(6, region.getNombre());
 			ps.setTimestamp(7, nextBencina.getFechaUlmtimaModificacion());
 
-			ps.execute();
-			int updateCount = ps.getUpdateCount();
+			int updateCount = ps.executeUpdate();
 			nextBencina.setServiCentro(nextSc);
 			if (updateCount > 0){
 				log.info("ACTUALIZA REGISTRO :" + nextBencina.toString() + "REGION: "+region.toStringCorto());
+			}else{
+				System.out.print("");
 			}
 			
 			
 		} catch (SQLException e) {
 			log.error(e);
-		} finally {
-			close(ps);
-			MySQLConnectionDB.getInstance().closeConnection();
+		} catch (NullPointerException e) {
+			log.error(e);
+		} 
+		finally {
+			close(ps,conn);
+//			MySQLConnectionDB.getInstance().closeConnection();
 		}
 	}
 

@@ -47,6 +47,8 @@ public class ParamConf {
 	public String DB_CONNECTION_PASS = getProps("DB_CONNECTION_PASS");
 	public String DB_CONNECTION_PORT = getProps("DB_CONNECTION_PORT");
 	public String DB_CONNECTION_SCHEMA = getProps("DB_CONNECTION_SCHEMA");
+	
+	public int QTY_HILOS = Integer.valueOf(getProps("QTY_HILOS"));
 
 
 	/**

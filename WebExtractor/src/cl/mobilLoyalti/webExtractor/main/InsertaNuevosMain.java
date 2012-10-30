@@ -10,19 +10,21 @@ import org.apache.log4j.Logger;
 
 import cl.mobilLoyalti.webExtractor.logic.LogicNewWebExtractorManager;
 import cl.mobilLoyalti.webExtractor.utils.Utiles;
+import cl.mobilLoyalti.webExtractor.utils.extern.ParamConf;
 
 /**
  * @author Sebastian Retamal
  * 
  */
 public class InsertaNuevosMain {
-//	
 
 	public static void main(String[] args) {
 
+		ParamConf paramConf = new ParamConf();
 
 		Logger log = Logger.getLogger(InsertaNuevosMain.class);
-		int idRegion = 6;
+		int idRegion = 0;
+
 		ArrayList<LogicNewWebExtractorManager> arrayList = new ArrayList<LogicNewWebExtractorManager>();
 		int contadorHilos = 0;
 		log.info("*******************************************************************");
@@ -34,9 +36,9 @@ public class InsertaNuevosMain {
 			/**
 			 * para evitar el heap memory space
 			 */
-			if (contadorHilos >= 4) {
+			if (contadorHilos >= paramConf.QTY_HILOS) {
 				log.info("ALCANSO MAXIMO DE HILOS PERMITIDOS EN EJECUCION");
-				while (contadorHilos >= 4) {
+				while (contadorHilos >= paramConf.QTY_HILOS) {
 					Iterator<LogicNewWebExtractorManager> iterator = arrayList
 							.iterator();
 
@@ -64,7 +66,6 @@ public class InsertaNuevosMain {
 
 		}
 
-
 		while (!arrayList.isEmpty()) {
 			Iterator<LogicNewWebExtractorManager> iterator = arrayList
 					.iterator();
@@ -78,10 +79,9 @@ public class InsertaNuevosMain {
 				}
 			}
 		}
-		log.info("FIN PROCESO CREACION FECHA HORA:"
-				+ Utiles.fechaHoraActual());
+		log.info("FIN PROCESO CREACION FECHA HORA:" + Utiles.fechaHoraActual());
 		log.info("*******************************************************************");
-		
+
 	}
 
 }

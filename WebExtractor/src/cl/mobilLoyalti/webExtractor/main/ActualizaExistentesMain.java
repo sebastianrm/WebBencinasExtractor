@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import cl.mobilLoyalti.webExtractor.logic.LogicUpdateWebExtractorManager;
 import cl.mobilLoyalti.webExtractor.utils.Utiles;
+import cl.mobilLoyalti.webExtractor.utils.extern.ParamConf;
 
 /**
  * @author Sebastian Retamal
@@ -21,6 +22,8 @@ public class ActualizaExistentesMain {
 	public static void main(String[] args) {
 
 		Logger log = Logger.getLogger(InsertaNuevosMain.class);
+		
+		ParamConf paramConf = new ParamConf();
 		int idRegion = 1;
 		ArrayList<LogicUpdateWebExtractorManager> arrayList = new ArrayList<LogicUpdateWebExtractorManager>();
 		int contadorHilos = 0;
@@ -33,9 +36,9 @@ public class ActualizaExistentesMain {
 			/**
 			 * para evitar el heap memory space
 			 */
-			if (contadorHilos >= 4) {
+			if (contadorHilos >= paramConf.QTY_HILOS) {
 				log.info("ALCANSO MAXIMO DE HILOS PERMITIDOS EN EJECUCION");
-				while (contadorHilos >= 4) {
+				while (contadorHilos >= paramConf.QTY_HILOS) {
 					Iterator<LogicUpdateWebExtractorManager> iterator = arrayList
 							.iterator();
 

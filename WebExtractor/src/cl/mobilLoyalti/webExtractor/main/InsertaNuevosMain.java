@@ -3,8 +3,9 @@
  */
 package cl.mobilLoyalti.webExtractor.main;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -25,7 +26,7 @@ public class InsertaNuevosMain {
 		Logger log = Logger.getLogger(InsertaNuevosMain.class);
 		int idRegion = 0;
 
-		ArrayList<LogicNewWebExtractorManager> arrayList = new ArrayList<LogicNewWebExtractorManager>();
+		List<LogicNewWebExtractorManager> arrayList = new CopyOnWriteArrayList<LogicNewWebExtractorManager>();
 		int contadorHilos = 0;
 		log.info("*******************************************************************");
 		log.info("INICIO DE PROCESO DE CREACION FECHA HORA:"
@@ -36,17 +37,18 @@ public class InsertaNuevosMain {
 			/**
 			 * para evitar el heap memory space
 			 */
-			if (contadorHilos >= paramConf.QTY_HILOS) {
+			if (contadorHilos >= paramConf.QTY_HILOS ) {
+				
 				log.info("ALCANSO MAXIMO DE HILOS PERMITIDOS EN EJECUCION");
-				while (contadorHilos >= paramConf.QTY_HILOS) {
-					Iterator<LogicNewWebExtractorManager> iterator = arrayList
-							.iterator();
+				
+				while (contadorHilos != 0) {
+					
+					for (LogicNewWebExtractorManager vo : arrayList) {
+						
 
-					while (iterator.hasNext()) {
-						LogicNewWebExtractorManager next = iterator.next();
-
-						if (next.isTermine()) {
+						if (vo.isTermine()) {
 							contadorHilos--;
+							arrayList.remove(vo);
 							// si termino entonces lo guardo en la base
 							log.info("TERMINO UN HILO DESMINULLE CONTADOR DE HILOS A: "
 									+ contadorHilos);
@@ -58,6 +60,7 @@ public class InsertaNuevosMain {
 			} else {
 				LogicNewWebExtractorManager regionExtractor = new LogicNewWebExtractorManager();
 				regionExtractor.setIdRegion(idRegion);
+				regionExtractor.setName("Region: "+idRegion);
 				regionExtractor.start();
 				idRegion++;
 				contadorHilos++;

@@ -28,6 +28,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow.CellIterator;
+import com.gargoylesoftware.htmlunit.util.Cookie;
 
 /**
  * Clase que busca en una region un tipo de combustible
@@ -50,7 +51,8 @@ public class WebLogicExtractor extends Thread {
 		super.run();
 
 		final WebClient webClient = new WebClient();
-
+		webClient.getCookieManager().setCookiesEnabled(true);
+		
 		HtmlPage page = null;
 
 		try {
@@ -58,6 +60,8 @@ public class WebLogicExtractor extends Thread {
 					.getPage("http://www.bencinaenlinea.cl/web2/buscador.php?region="
 							+ idRegion);
 
+	        Cookie cookie = webClient.getCookieManager().getCookie("PHPSESSID");
+	        
 			page.getWebClient().setAjaxController(
 					new NicelyResynchronizingAjaxController());
 			page.getWebClient().setThrowExceptionOnFailingStatusCode(true);

@@ -65,6 +65,9 @@ public class LogicNewWebExtractorManager extends Thread {
 			WebLogicExtractor webLogicExtractor = new WebLogicExtractor();
 			webLogicExtractor.setIdRegion(idRegion);
 			webLogicExtractor.setIndiceBencina(idBencina);
+			
+			webLogicExtractor.setName("Region: "+idRegion+"  IdBencina: "+idBencina);
+			
 			webLogicExtractor.start();
 			idBencina++;
 			arrayList.add(webLogicExtractor);

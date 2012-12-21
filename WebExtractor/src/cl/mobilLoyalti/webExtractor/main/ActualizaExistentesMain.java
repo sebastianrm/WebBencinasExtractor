@@ -3,8 +3,9 @@
  */
 package cl.mobilLoyalti.webExtractor.main;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -25,28 +26,29 @@ public class ActualizaExistentesMain {
 		
 		ParamConf paramConf = new ParamConf();
 		int idRegion = 1;
-		ArrayList<LogicUpdateWebExtractorManager> arrayList = new ArrayList<LogicUpdateWebExtractorManager>();
+		List<LogicUpdateWebExtractorManager> arrayList = new CopyOnWriteArrayList<LogicUpdateWebExtractorManager>();
+		
+		
 		int contadorHilos = 0;
 		log.info("*******************************************************************");
 		log.info("INICIO DE PROCESO DE ACTUALIZACION FECHA HORA:"
 				+ Utiles.fechaHoraActual());
-
+		
 		while (idRegion <= 15) {
 
 			/**
 			 * para evitar el heap memory space
 			 */
-			if (contadorHilos >= paramConf.QTY_HILOS) {
+			if (contadorHilos >= paramConf.QTY_HILOS ) {
+				
 				log.info("ALCANSO MAXIMO DE HILOS PERMITIDOS EN EJECUCION");
-				while (contadorHilos >= paramConf.QTY_HILOS) {
-					Iterator<LogicUpdateWebExtractorManager> iterator = arrayList
-							.iterator();
+				while (contadorHilos != 0) {
 
-					while (iterator.hasNext()) {
-						LogicUpdateWebExtractorManager next = iterator.next();
+					for (LogicUpdateWebExtractorManager vo : arrayList) {
 
-						if (next.isTermine()) {
+						if (vo.isTermine()) {
 							contadorHilos--;
+							arrayList.remove(vo);
 							// si termino entonces lo guardo en la base
 							log.info("TERMINO UN HILO DESMINULLE CONTADOR DE HILOS A: "
 									+ contadorHilos);
@@ -59,6 +61,7 @@ public class ActualizaExistentesMain {
 				LogicUpdateWebExtractorManager regionExtractor = new LogicUpdateWebExtractorManager();
 				regionExtractor.setIdRegion(idRegion);
 				regionExtractor.start();
+				regionExtractor.setName("Region: "+idRegion);
 				idRegion++;
 				contadorHilos++;
 				arrayList.add(regionExtractor);
